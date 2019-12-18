@@ -38,8 +38,8 @@
 #include "ILI93xx.h"
 #include "GUI.h"
 #include "GUI_Frame.h"
-
 #include "ledpwm.h"
+#include "Lcd_Top.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -87,14 +87,17 @@ int main(void)
   
 
   /* MCU Configuration--------------------------------------------------------*/
+
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
+
   /* USER CODE BEGIN Init */
 
   /* USER CODE END Init */
 
   /* Configure the system clock */
   SystemClock_Config();
+
   /* USER CODE BEGIN SysInit */
 
   /* USER CODE END SysInit */
@@ -112,21 +115,21 @@ int main(void)
   /* USER CODE BEGIN 2 */
   simplelib_init(&huart1, &hcan1);
   GUI_Init();
-  uint8_t temp_addr[5] = {48,51,51,48,20};  
-  nrf_set_rx_addr(NRF_PIPE_0, temp_addr, 5);
-  nrf_set_tx_addr(temp_addr, 5);
-  nrf_init(NULL);
 
-  //HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+  // uint8_t temp_addr[5] = {48,51,51,48,20};  
+  // nrf_set_rx_addr(NRF_PIPE_0, temp_addr, 5);
+  // nrf_set_tx_addr(temp_addr, 5);
+  // nrf_init(NULL);  
+
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3);
   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_4);
   HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&ADC_Value, 1);
-  //GUI_SetBkColor(GUI_WHITE);
-  //GUI_Clear();  
-  //LCD_Clear(GUI_WHITE);
-  //drawCoordiantes(0,0,480,320);  
-  drawMainFrame();
+
+
+
+  
   
 
   
@@ -135,67 +138,20 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
-  {
+  { 
     simplelib_run();
-    LED_main();
-    GUI_main();
-    nrf_main();
+    LED_main();    
+    // nrf_main();
+    Lcd_Top_main();
+
+    
     /* USER CODE END WHILE */
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
 }
 
-/* USER CODE BEGIN 4 */
-
-void SysTick_Handler(void)
-{
-  /* USER CODE BEGIN SysTick_IRQn 0 */
-  time_1ms_cnt++;
-  if(time_1ms_cnt % 5 == 0)
-    {      
-      flag.fivems = 1;
-    } 
-  if(time_1ms_cnt % 50 == 0)
-    {      
-      flag.fiftyms = 1;
-    } 
-  if(time_1ms_cnt % 100 == 0)
-    {      
-      flag.hundms =1;
-    } 
-  if(time_1ms_cnt % 500 == 0)
-    {      
-      flag.halfs =1;
-    } 
-  if(time_1ms_cnt % 1000 == 0)
-    {      
-      flag.ones =1;
-      time_1s_flag = 1;
-    } 
-  if(time_1ms_cnt >= 60000)
-    {
-      time_1ms_cnt = 0;
-    }
-  /* USER CODE END SysTick_IRQn 0 */
-  HAL_IncTick();
-}
-void nrf_spi_receive_callback(uint8_t *data, int len) 
-{
-    //uint32_t can_id = *((uint32_t*)(data));
-    can_msg *msg = (can_msg*)(data+4);
-    if( msg->in[0]>=0 && msg->in[0]<=9 )
-    {
-      NRF_Data[msg->in[0]]=msg->fl[1];
-    }  
-}
-
-
-
-
-
-
-/* USER CODE END 4 */
 /**
   * @brief System Clock Configuration
   * @retval None
@@ -238,6 +194,58 @@ void SystemClock_Config(void)
     Error_Handler();
   }
 }
+
+/* USER CODE BEGIN 4 */
+
+void inc(void)
+{
+  /* USER CODE BEGIN SysTick_IRQn 0 */
+  time_1ms_cnt++;
+  if(time_1ms_cnt % 5 == 0)
+    {      
+      flag.fivems = 1;
+    } 
+
+  if(time_1ms_cnt % 50 == 0)
+    {      
+      flag.fiftyms = 1;
+      lcd_flag = 1; 
+    } 
+  if(time_1ms_cnt % 100 == 0)
+    {      
+      flag.hundms =1;
+    } 
+  if(time_1ms_cnt % 500 == 0)
+    {      
+      flag.halfs =1;
+    } 
+  if(time_1ms_cnt % 1000 == 0)
+    {      
+      flag.ones =1;
+      time_1s_flag = 1;
+    } 
+  if(time_1ms_cnt >= 60000){
+      time_1ms_cnt = 0;
+    }
+  /* USER CODE END SysTick_IRQn 0 */
+  HAL_IncTick();
+}
+// void nrf_spi_receive_callback(uint8_t *data, int len) 
+// {
+//     //uint32_t can_id = *((uint32_t*)(data));
+//     can_msg *msg = (can_msg*)(data+4);
+//     if( msg->in[0]>=0 && msg->in[0]<=9 )
+//     {
+//       NRF_Data[msg->in[0]]=msg->fl[1];
+//     }  
+// }
+
+
+
+
+
+
+/* USER CODE END 4 */
 
 /**
   * @brief  This function is executed in case of error occurrence.

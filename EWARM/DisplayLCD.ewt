@@ -1652,6 +1652,9 @@
                 <name>$PROJ_DIR$\..\Src\ILI93xx.c</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\Src\Lcd_Top.c</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\Src\ledpwm.c</name>
             </file>
         </group>

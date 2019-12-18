@@ -95,7 +95,7 @@ void Error_Handler(void);
 #define LED3_Pin GPIO_PIN_9
 #define LED3_GPIO_Port GPIOC
 /* USER CODE BEGIN Private defines */
-
+void inc(void);
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
