@@ -10,9 +10,18 @@ typedef enum {
   MENU_USART,
   MENU_MOTOR,
   MENU_XY,
-  MENU_OTHER
-} MENU_STATE;
+  MENU_OTHER,
 
+  MENU_ROBOT_VARI,
+  MENU_ROBOT_SENSOR,
+  MENU_ROBOT_POS,
+  MENU_ROBOT_CAN,
+  MENU_ROBOT_TEST,
+  MENU_ROBOT_OTHER,
+
+} MENU_STATE;
+extern MENU_STATE now_state ;
+extern MENU_STATE show_state;
 extern int time_1s_flag;
 extern int time_1s_cnt;
 extern int time_1ms_cnt;
@@ -25,6 +34,7 @@ void menu_pageup(void);//窗口上翻页
 void menu_pagedown(void);//窗口下翻页
 void menu_clear_window(void);//窗口清空
 void show_time(signed short x,signed short y);//时钟显示
+void show_system_time(void);
 void usart_window_update(char *text);//串口控制显示
 void can_window_update(uint32_t Std_ID,uint8_t aData[]);//can控制显示
 void GUI_main();//GUI主函数
