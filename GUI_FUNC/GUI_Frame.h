@@ -27,14 +27,14 @@ extern int time_1s_cnt;
 extern int time_1ms_cnt;
 
 void drawCoordiantes(int x0,int y0,int x1,int y1);//绘制xy坐标系
-void drawMainFrame(void);//绘制主框架
-void menu_function(void);//窗口切换控制
+void drawMainFrame();//绘制主框架
+void menu_function();//窗口切换控制
 void menu_update(MENU_STATE state,int mode);//窗口更新
-void menu_pageup(void);//窗口上翻页
-void menu_pagedown(void);//窗口下翻页
-void menu_clear_window(void);//窗口清空
+void menu_pageup();//窗口上翻页
+void menu_pagedown();//窗口下翻页
+void menu_clear_window();//窗口清空
 void show_time(signed short x,signed short y);//时钟显示
-void show_system_time(void);
+void show_system_time();
 void usart_window_update(char *text);//串口控制显示
 void can_window_update(uint32_t Std_ID,uint8_t aData[]);//can控制显示
 void GUI_main();//GUI主函数

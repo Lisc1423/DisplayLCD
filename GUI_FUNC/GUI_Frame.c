@@ -14,11 +14,11 @@ uint8_t can_text_cnt = 0;
 uint32_t can_rx_rate = 0;
 
 extern GUI_BITMAP bmroboconnew;
-void show_robocon_image(void){
+void show_robocon_image(){
   GUI_DrawBitmapEx(&bmroboconnew, 90, 100, 0, 0, 800, 800);
 }
 extern GUI_BITMAP bmmap;
-void show_robocon_map(void){
+void show_robocon_map(){
   GUI_DrawBitmap(&bmmap, 80, 20);
 }
 //绘制坐标系
@@ -77,7 +77,7 @@ GUI_RECT menu3Rect = {0, 120, 79, 169};
 GUI_RECT menu4Rect = {0, 170, 79, 219};
 GUI_RECT menu5Rect = {0, 220, 79, 269};
 GUI_RECT menu6Rect = {0, 270, 79, 319};
-void drawMainFrame(void){
+void drawMainFrame(){
   GUI_SetColor(GUI_WHITE);
   GUI_SetPenSize(3);
   GUI_DrawHLine(19, 0, 480);  //上横线
@@ -107,7 +107,7 @@ void drawMainFrame(void){
   menu_update(MENU_ROBOT_OTHER, GUI_TM_NORMAL);
   }  
 }
-void menu_pagedown(void){
+void menu_pagedown(){
   if(lcd_place==0){
   if (now_state == MENU_OTHER)
     show_state = MENU_NRF;
@@ -121,7 +121,7 @@ void menu_pagedown(void){
     show_state = now_state + 1;
   }
 }
-void menu_pageup(void){
+void menu_pageup(){
   if(lcd_place == 0){
   if (now_state == MENU_NRF || now_state == 0)
     show_state = MENU_OTHER;
@@ -195,12 +195,11 @@ void menu_update(MENU_STATE state, int mode){
     break;
   }
 }
-void menu_clear_window(void){
+void menu_clear_window(){
   GUI_SetBkColor(GUI_BLACK);
   GUI_ClearRect(81, 20, 479, 319);
 }
-void menu_function(void)
-{
+void menu_function(){
   switch (show_state){
   case MENU_NONE:{
     if (now_state != MENU_NONE)
@@ -383,7 +382,7 @@ void show_time(signed short x, signed short y){
   GUI_DispStringAt(":", x + 17 + 15, y);
   GUI_DispDecAt(time_1s_cnt % 60, x + 26 + 15, y, 2);
 }
-void show_system_time(void){
+void show_system_time(){
   if (time_1s_flag){
     time_1s_cnt++;
     show_time(4, 0);
@@ -408,7 +407,7 @@ void draw_point_onMap(float x, float y){
   GUI_DispStringAt("y:", 423, 305);
   GUI_DispFloat(y, 5);
 }
-void GUI_main(void){
+void GUI_main(){
   show_rate();
   menu_function();
 }
