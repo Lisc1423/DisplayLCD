@@ -16,8 +16,8 @@ void Lcd_Top_main(){
     if(lcd_place != HAL_GPIO_ReadPin(S1_GPIO_Port,S1_Pin)){
      lcd_place = (int) HAL_GPIO_ReadPin(S1_GPIO_Port,S1_Pin);
      GUI_Clear();drawMainFrame();
-     if(lcd_place==0){now_state=MENU_NRF;show_state=MENU_NRF;}
-     if(lcd_place==1){now_state=MENU_ROBOT_VARI;show_state=MENU_ROBOT_VARI;}
+     if(lcd_place==0){now_state=MENU_NONE;show_state=MENU_NRF;}
+     if(lcd_place==1){now_state=MENU_NONE;show_state=MENU_ROBOT_VARI;}
     }
     
     GUI_main();

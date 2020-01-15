@@ -2,7 +2,6 @@
 #include "main.h"
 #include "stm32f407xx.h"
 #include "ILI93xx.h"
-
 typedef enum {
   MENU_NONE,
   MENU_NRF,

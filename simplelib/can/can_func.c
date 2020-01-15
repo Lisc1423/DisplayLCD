@@ -1,6 +1,7 @@
 #include "can_func.h"
 
 #include "GUI_Frame.h"
+#include "frame_func.h"
 #ifdef SL_CAN
 
 #ifdef SL_DEBUG
@@ -14,10 +15,17 @@ void can_func_init() {
     can_callback_add(324, can_show_rocker);
     #endif
     can_callback_add(666,draw_map_point);
+
+    can_callback_add(VAR_ID,can_update_var);
 }
 void draw_map_point(can_msg *data){
     draw_point_onMap(data->fl[0],data->fl[1]);
 }
+void can_update_var(can_msg *data){
+    update_var(data);
+}
+
+
 
 #ifdef SL_DEBUG
 void can_suc_rx(can_msg *data) {

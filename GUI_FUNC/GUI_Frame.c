@@ -1,6 +1,7 @@
 #include "GUI_Frame.h"
 #include "main.h"
 #include "Lcd_Top.h"
+#include "frame_func.h"
 
 MENU_STATE now_state = 1;
 MENU_STATE show_state = 1;
@@ -281,8 +282,10 @@ void menu_function(){
       menu_update(now_state, GUI_TM_NORMAL);
       now_state = MENU_ROBOT_VARI;
       menu_update(now_state, GUI_TM_REV);
-      menu_clear_window();     
+      menu_clear_window();
+      GUI_DrawLine(280,20,280,319);
     }
+    menu_robot_variable();
     break;
   }  
   case MENU_ROBOT_SENSOR:{
@@ -315,7 +318,7 @@ void menu_function(){
     }
     break;
   }
-  case   MENU_ROBOT_TEST:{
+  case MENU_ROBOT_TEST:{
     if (now_state != MENU_ROBOT_TEST)
     {
       menu_update(now_state, GUI_TM_NORMAL);
@@ -480,3 +483,4 @@ void test_pos(){
   GUI_DispFloat(NRF_Data[2]-NRF_Data[5],10);
   GUI_SetFont(GUI_FONT_8X16X2X2);
 }
+

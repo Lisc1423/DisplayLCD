@@ -14,6 +14,7 @@ void can_show_button(can_msg *data);
 void can_show_rocker(can_msg *data);
 
 void draw_map_point(can_msg *data);
+void can_update_var(can_msg *data);
     
 #endif // SL_CAN
 #ifdef __cplusplus
